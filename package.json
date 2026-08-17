@@ -41,7 +41,7 @@
     "build:js": "tsc",
     "lint": "biome check --fix",
     "lint:agent": "biome check --fix --reporter=concise",
-    "test": "tsc --noEmit --project tsconfig.test.json",
+    "test": "tsc --noEmit --project tests",
     "watch": "tsc --watch",
     "prepare": "effect-tsgo patch --typescript --no-oxlint"
   },

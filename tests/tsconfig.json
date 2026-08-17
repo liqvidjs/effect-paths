@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "types": ["effect-paths", "node"]
+    "rootDir": "..",
+    "types": ["node"]
   },
   "extends": "../tsconfig.json",
   "include": [".", "../src"]
