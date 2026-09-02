@@ -1,6 +1,6 @@
 {
   "name": "effect-paths",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Effect helpers adding type safety for dealing with absolute vs relative and file vs directory",
   "homepage": "https://github.com/liqvidjs/effect-paths/tree/main#readme",
   "bugs": {
