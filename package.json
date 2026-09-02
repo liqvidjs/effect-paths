@@ -46,9 +46,9 @@
     "prepare": "effect-tsgo patch --typescript --no-oxlint"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.8",
-    "@effect/tsgo": "0.36.5",
-    "@types/node": "^26.2.0",
+    "@biomejs/biome": "2.5.11",
+    "@effect/tsgo": "0.39.0",
+    "@types/node": "^26.4.1",
     "effect": "^4.0.0-rc.110",
     "typescript": "^7.0.2"
   },
