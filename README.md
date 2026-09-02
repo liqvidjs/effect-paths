@@ -12,7 +12,7 @@ npm install effect-paths
 
 ## Usage
 
-See example below for basic usage, and read [`index.ts`](./blob/main/src/index.ts) for all available options.
+See example below for basic usage, and read [`index.ts`](https://github.com/liqvidjs/effect-paths/blob/main/src/index.ts) for all available options.
 
 If you just want the types without the Effect dependency, import from `effect-paths/vanilla` instead.
 
