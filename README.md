@@ -4,17 +4,13 @@ This provides helpers for working with paths in [Effect-TS](https://effect.websi
 
  This uses Effect v4 RC, although it may also work with v3, I haven't tried.
 
+If you just want the types without the Effect dependency, import from `effect-paths/vanilla` instead.
+
 ## Installation
 
 ```bash
 npm install effect-paths
 ```
-
-## Usage
-
-See example below for basic usage, and read [`index.ts`](https://github.com/liqvidjs/effect-paths/blob/main/src/index.ts) for all available options.
-
-If you just want the types without the Effect dependency, import from `effect-paths/vanilla` instead.
 
 ## Example
 
@@ -82,3 +78,70 @@ const entry = entries[0]!;
 entry.parentPath satisfies AbsoluteDir;
 entry.name satisfies RelativePath;
 ```
+
+## Types
+
+These are the branded types for relative/absolute files/directories:
+
+
+| Types    | File           | Directory     | Either         |
+|----------|----------------|---------------|----------------|
+| Relative | `RelativeFile` | `RelativeDir` | `RelativePath` |
+| Absolute | `AbsoluteFile` | `AbsoluteDir` | `AbsolutePath` |
+| Either   | `AnyFile`      | `AnyDir`      | `AnyPath`      |
+
+Additional types:
+
+- `Dirent` - customized version of [`fs.Dirent`](https://nodejs.org/api/fs.html#class-fsdirent) that uses branded types for `name` and `parentPath`, and narrows the type of `name` based on `isDirectory()` and `isFile()`
+- `FileExtn` - branded type for file extensions
+- `AbsoluteToRelative<P extends AbsolutePath>` - utility to convert `AbsoluteFile` -> `RelativeFile` and `AbsoluteDir` -> `RelativeDir`
+- `RelativeToAbsolute<P extends RelativePath>` - utility to convert `RelativeFile` -> `AbsoluteFile` and `RelativeDir` -> `AbsoluteDir`
+
+## Schemas
+
+Schemas for the above types:
+
+| Schemas  | File                 | Directory           | Either               |
+|----------|----------------------|---------------------|----------------------|
+| Relative | `SchemaRelativeFile` | `SchemaRelativeDir` | `SchemaRelativePath` |
+| Absolute | `SchemaAbsoluteFile` | `SchemaAbsoluteDir` | `AbsolutePath`       |
+| Either   | `SchemaAnyFile`      | `SchemaAnyDir`      | `SchemaAnyPath`      |
+
+as well as `SchemaFileExtn`.
+
+## Overrides
+
+### fs
+
+- `readdirSync()`
+  - returns `RelativePath[]` when passed an `AbsoluteDir`
+  - returns an Error when passed an `AnyPath` which is not an `AbsoluteDir`
+  - returns `string[]` as usual when passed a plain string
+  - returns branded `Dirent[]` when passed `withFileTypes: true`
+
+- `watch()`: when passed an `AbsoluteDir`, the callback receives `RelativePath` instead of `string`
+
+### fs/promises
+
+Same as above but with Promises
+
+### path
+
+- `basename()` returns `RelativeDir` when passed `AnyDir`, and `RelativeFile` when passed `AnyFile`
+- `dirname()` returns `AbsoluteDir` when passed `AbsolutePath`, and `RelativeDir` when passed `RelativePath`
+- `extname()` returns `FileExtn` when passed `AnyFile`
+- `format()` returns `AbsolutePath` when passed `AbsoluteDir` for `dir` or `root`
+- `isAbsolute()` narrows the type when passed an `AnyPath`
+- `join()` handles all combinations of absolute/relative files/dirs, and returns an Error on invalid combinations (the Error is just in the types, not at runtime)
+- `normalize()` preserves the type when passed an `AnyPath`
+- `parse()` returns `AbsoluteDir` for `dir`, and `FileExtn` for `ext`
+- `relative()` returns `RelativePath` when passed two `AbsolutePath`s
+- `resolve()` returns `AbsolutePath` when passed an `AbsoluteDir` and a `RelativePath`
+
+### process
+
+- `process.cwd()` now returns `AbsoluteDir`
+
+### url
+
+- `fileURLToPath()` now returns `AbsolutePath`
