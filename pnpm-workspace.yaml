@@ -1,5 +1,5 @@
 allowBuilds:
-  msgpackr-extract: set this to true or false
+  msgpackr-extract: true
 minimumReleaseAgeExclude:
   - '@effect/tsgo-darwin-arm64@0.39.0'
   - '@effect/tsgo-darwin-x64@0.39.0'

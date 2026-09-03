@@ -1,6 +1,6 @@
 {
   "name": "effect-paths",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Effect helpers adding type safety for dealing with absolute vs relative and file vs directory",
   "homepage": "https://github.com/liqvidjs/effect-paths/tree/main#readme",
   "bugs": {
@@ -49,7 +49,7 @@
     "@biomejs/biome": "2.5.11",
     "@effect/tsgo": "0.39.0",
     "@types/node": "^26.4.1",
-    "effect": "^4.0.0-rc.110",
+    "effect": "^4.0.0-rc.112",
     "typescript": "^7.0.2"
   },
   "peerDependencies": {
